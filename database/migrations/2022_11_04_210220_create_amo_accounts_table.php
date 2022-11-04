@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('amo_accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('accessToken');
+            $table->text('accessToken');
             $table->string('refreshToken')->nullable();
             $table->unsignedBigInteger('expires')->nullable();
             $table->string('baseDomain')->nullable();
