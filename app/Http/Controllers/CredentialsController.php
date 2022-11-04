@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use AmoCRM\Client\AmoCRMApiClient;
+use App\Models\AmoAccount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CredentialsController extends Controller
 {
@@ -16,6 +18,14 @@ class CredentialsController extends Controller
         );
         $apiClient->setAccountBaseDomain(getenv('ACCOUNT_DOMAIN'));
         $token = $apiClient->getOAuthClient()->getAccessTokenByCode($request->code);
-        return $token;
+        $account = AmoAccount::create([
+            'accessToken' => $token['accessToken'],
+            'refreshToken' => $token['refreshToken'],
+            'expires' => $token['expires'],
+            'baseDomain' => $token['baseDomain'],
+        ]);
+        Log::info($token['accessToken']);
+        return 'success';
+
     }
 }
