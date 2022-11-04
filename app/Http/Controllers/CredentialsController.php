@@ -19,12 +19,9 @@ class CredentialsController extends Controller
         $apiClient->setAccountBaseDomain(getenv('ACCOUNT_DOMAIN'));
         $token = $apiClient->getOAuthClient()->getAccessTokenByCode($request->code);
         $account = AmoAccount::create([
-            'accessToken' => $token['accessToken'],
-            'refreshToken' => $token['refreshToken'],
-            'expires' => $token['expires'],
-            'baseDomain' => $token['baseDomain'],
+            'accessToken' => $token,
         ]);
-        Log::info($token['accessToken']);
+        Log::info($account);
         return 'success';
 
     }

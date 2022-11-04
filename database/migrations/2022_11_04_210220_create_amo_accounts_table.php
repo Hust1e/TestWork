@@ -11,9 +11,9 @@ return new class extends Migration
         Schema::create('amo_accounts', function (Blueprint $table) {
             $table->id();
             $table->string('accessToken');
-            $table->string('refreshToken');
-            $table->unsignedBigInteger('expires');
-            $table->string('baseDomain');
+            $table->string('refreshToken')->nullable();
+            $table->unsignedBigInteger('expires')->nullable();
+            $table->string('baseDomain')->nullable();
             $table->timestamps();
         });
     }
