@@ -6,6 +6,7 @@ use AmoCRM\Client\AmoCRMApiClient;
 use App\Models\AmoAccount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use League\OAuth2\Client\Token\AccessToken;
 
 class CredentialsController extends Controller
 {
@@ -25,6 +26,17 @@ class CredentialsController extends Controller
     }
     public function account()
     {
-
+        $apiClient = new AmoCRMApiClient(
+            getenv('CLIENT_ID'),
+            getenv('CLIENT_SECRET'),
+            getenv('CLIENT_REDIRECT_URI')
+        );
+        $apiClient->setAccountBaseDomain(getenv('ACCOUNT_DOMAIN'));
+        $raw_token = json_decode(file_get_contents('../token.json'), 1);
+        $token = new AccessToken($raw_token);
+        $apiClient->setAccessToken($token);
+        $account = $apiClient->account()->getCurrent();
+        echo "<pre>";
+        print_r($account->toArray());
     }
 }
