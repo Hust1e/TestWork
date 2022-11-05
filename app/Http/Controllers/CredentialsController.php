@@ -18,11 +18,13 @@ class CredentialsController extends Controller
         );
         $apiClient->setAccountBaseDomain(getenv('ACCOUNT_DOMAIN'));
         $token = $apiClient->getOAuthClient()->getAccessTokenByCode($request->code);
-        $account = AmoAccount::create([
-            'accessToken' => $token,
-        ]);
-        Log::info($account);
+        file_put_contents('../token.json', json_encode($token->jsonSerialize(), JSON_PRETTY_PRINT));
+        Log::info($token);
         return 'success';
+
+    }
+    public function account()
+    {
 
     }
 }
