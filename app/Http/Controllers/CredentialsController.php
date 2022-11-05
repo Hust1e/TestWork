@@ -51,7 +51,8 @@ class CredentialsController extends Controller
         $token = new AccessToken($raw_token);
         $apiClient->setAccessToken($token);
         $leads = $apiClient->leads();
+        $leadsCollection = $leads->get();
         echo "<pre>";
-        print_r($leads);
+        print_r($leadsCollection);
     }
 }
