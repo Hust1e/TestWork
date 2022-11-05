@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/credentials', [\App\Http\Controllers\CredentialsController::class, 'index']);
 Route::get('/account', [\App\Http\Controllers\CredentialsController::class, 'account']);
+Route::get('/leads', [\App\Http\Controllers\CredentialsController::class, 'leads']);

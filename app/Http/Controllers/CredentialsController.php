@@ -39,4 +39,19 @@ class CredentialsController extends Controller
         echo "<pre>";
         print_r($account->toArray());
     }
+    public function leads()
+    {
+        $apiClient = new AmoCRMApiClient(
+            getenv('CLIENT_ID'),
+            getenv('CLIENT_SECRET'),
+            getenv('CLIENT_REDIRECT_URI')
+        );
+        $apiClient->setAccountBaseDomain(getenv('ACCOUNT_DOMAIN'));
+        $raw_token = json_decode(file_get_contents('../token.json'), 1);
+        $token = new AccessToken($raw_token);
+        $apiClient->setAccessToken($token);
+        $leads = $apiClient->leads();
+        echo "<pre>";
+        print_r($leads);
+    }
 }
